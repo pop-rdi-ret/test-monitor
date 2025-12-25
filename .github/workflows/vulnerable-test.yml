@@ -1,44 +1,44 @@
 name: Vulnerable PR Target Test
 
 on:
-pull_request_target:
+  pull_request_target:
     types: [opened, synchronize]
 
 jobs:
-test-pr-code:
+  test-pr-code:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout PR code
+      - name: Checkout PR code
         uses: actions/checkout@v3
         with:
-        ref: '${{ github.event.pull_request.head.sha }}'
+          ref: '${{ github.event.pull_request.head.sha }}'
 
-    - name: Install dependencies
+      - name: Install dependencies
         run: npm install
 
-    - name: Run tests
+      - name: Run tests
         run: npm test
 
-echo-pr-info:
+  echo-pr-info:
     runs-on: ubuntu-latest
     env:
-    PR_TITLE: '${{ github.event.pull_request.title }}'
+      PR_TITLE: '${{ github.event.pull_request.title }}'
     steps:
-    - name: Print PR info
+      - name: Print PR info
         run: echo "PR Title is $PR_TITLE"
 
-    - name: Comment on PR
+      - name: Comment on PR
         run: echo "From ${{ github.event.pull_request.user.login }}"
 
-upload-artifacts:
+  upload-artifacts:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
-        ref: '${{ github.event.pull_request.head.ref }}'
+          ref: '${{ github.event.pull_request.head.ref }}'
 
-    - name: Upload artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-        name: build-output
-        path: ./dist
+          name: build-output
+          path: ./dist
