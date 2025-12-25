@@ -11,7 +11,7 @@ test-pr-code:
     - name: Checkout PR code
         uses: actions/checkout@v3
         with:
-        ref: ${{ github.event.pull_request.head.sha }}
+        ref: '${{ github.event.pull_request.head.sha }}'
 
     - name: Install dependencies
         run: npm install
@@ -22,10 +22,10 @@ test-pr-code:
 echo-pr-info:
     runs-on: ubuntu-latest
     env:
-    PR_TITLE: ${{ github.event.pull_request.title }}
+    PR_TITLE: '${{ github.event.pull_request.title }}'
     steps:
     - name: Print PR info
-        run: echo "PR Title: $PR_TITLE"
+        run: echo "PR Title is $PR_TITLE"
 
     - name: Comment on PR
         run: echo "From ${{ github.event.pull_request.user.login }}"
@@ -35,7 +35,7 @@ upload-artifacts:
     steps:
     - uses: actions/checkout@v3
         with:
-        ref: ${{ github.event.pull_request.head.ref }}
+        ref: '${{ github.event.pull_request.head.ref }}'
 
     - name: Upload artifacts
         uses: actions/upload-artifact@v3
